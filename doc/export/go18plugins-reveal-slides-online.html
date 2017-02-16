@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="generator" content="pandoc">
+  <meta name="description" content="Go 1.8 Release Party" />
+  <meta name="author" content="New feature: Plugins">
+  <title>Go 1.8 Release Party</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/reveal.css">
+  <link rel="stylesheet" href="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js-menu//menu.css">
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/league.css" id="theme">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/print/pdf.css' : 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+  <style type="text/css">
+    code{
+      white-space: pre;
+    }
+    .reveal pre code {
+      background: rgba(255, 255, 255, 0.7);
+      color: rgba(0, 0, 0, 0.7);
+    }
+    .reveal section img {
+      margin: 15px 0px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    strong {
+      color: #777
+    }
+    a:hover {
+      text-decoration: underline !important;
+    }
+    h1.title {
+      font-size: 350% !important;
+    }
+    h1 {
+      font-size: 250% !important;
+    }
+    h2 {
+      font-size: 150% !important;
+    }
+    h3 {
+      font-size: 100% !important;
+    }
+    @media print {
+      #only-print-parent { display: table !important; }
+      #only-print-child { display: table-cell !important; vertical-align: middle;}
+      h1.title { font-size: 400% !important;}
+      h1 { font-size: 300% !important; }
+      h2 { font-size: 200% !important; }
+      h3 { font-size: 150% !important; }
+    }
+  </style>
+  <!--[if lt IE 9]>
+  <script src="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="only-print-parent">
+    <div id="only-print-child">
+      <h1 class="title">Go 1.8 Release Party</h2>
+      <h2 class="author">New feature: Plugins</h2>
+      <h3 class="date">By: Daniel Toebe</h3>
+    </div>
+</section>
+
+<section><section id="what-is-the-plugin-feature" class="titleslide slide level1"><h1><span class="header-section-number">1</span> What is the Plugin feature?</h1></section><section id="the-plugin-feature-creates-.so-files" class="slide level2">
+<h2><span class="header-section-number">1.1</span> The Plugin feature creates .so files</h2>
+<ul>
+<li>The new <code>Plugin</code> feature is a way to create .so (shared object) file for dynamically linking libs in Go</li>
+</ul>
+</section><section id="ok..-what-is-a-shared-object-file" class="slide level2">
+<h2><span class="header-section-number">1.2</span> Ok.. What is a shared object file?</h2>
+<ul>
+<li>A .so file is a precompiled binary that allows you to call functions inside it dynamically at your executable's runtime</li>
+</ul>
+</section><section id="what-does-that-really-mean" class="slide level2">
+<h2><span class="header-section-number">1.3</span> What does that really mean?</h2>
+<ul>
+<li>Now instead of only having <code>go get</code> to download a package source on your build machine and compiling that package in your executable
+<ul>
+<li>You now can compile your package as a plugin binary distribute it separately and call it in your executable, and it will be loaded at runtime.</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="that-sounds-neat-but-what-is-the-benefit" class="titleslide slide level1"><h1><span class="header-section-number">2</span> That sounds neat, but what is the benefit?</h1></section><section id="first" class="slide level2">
+<h2><span class="header-section-number">2.1</span> First</h2>
+<ul>
+<li>Your executable may be smaller when you distribute it.</li>
+</ul>
+</section><section id="second" class="slide level2">
+<h2><span class="header-section-number">2.2</span> Second</h2>
+<ul>
+<li>You can version the .so file. Making sure your executable calls the right version which can prevent runtime errors
+<ul>
+<li>Now you can create a <code>plugin.so.0.1</code> instead of a regular import and have many executables depend on that. What is you have added more features? Instead of updating all the dependent executables, you can just create a new <code>plugin.so.0.2</code>, call that in all the new executables you create and v0.1, and v0.2 can live side by side in your file system.</li>
+</ul></li>
+</ul>
+</section><section id="finally" class="slide level2">
+<h2><span class="header-section-number">2.3</span> Finally</h2>
+<ul>
+<li>Finally your .so files don't need to live in your <code>$GOPATH</code> at all! It can live anywhere in your file system and you can dynamically link in your executable.</li>
+</ul>
+</section><section id="what-do-i-mean-by-dynamically-linking" class="slide level2">
+<h2><span class="header-section-number">2.4</span> What do I mean by dynamically linking?</h2>
+<ul>
+<li>Basically you can place your .so file where ever you want, but if you have to make sure that it is places in the same place in the file system from server to server.
+<ul>
+<li>Examples: <code>/opt/libs</code> or something like <code>/usr/libs</code></li>
+<li>Or you can just have an environment variable created when you distribute your .so file and use that in calling your shared object in your executable using <code>os.Getenv()</code></li>
+<li>Another option is passing the path to the .so file through os.Args, or as a flag</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="how-do-we-create-a-shared-object-file" class="titleslide slide level1"><h1><span class="header-section-number">3</span> How do we create a shared object file?</h1></section><section id="fist-we-need-to-have-the-prerequisite-import" class="slide level2">
+<h2><span class="header-section-number">3.1</span> Fist we need to have the prerequisite import</h2>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">import</span> <span class="st">&quot;C&quot;</span></code></pre></div>
+<p>While we are not calling any C functions directly this is needed on all Plugins</p>
+</section><section id="now-we-write-our-functions" class="slide level2">
+<h2><span class="header-section-number">3.2</span> Now we write our functions</h2>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="co">// plugin.go</span>
+<span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;C&quot;</span>
+
+<span class="kw">func</span> Greet() <span class="dt">string</span> {
+    <span class="kw">return</span> <span class="st">&quot;Hello Phx Gophers&quot;</span>
+}</code></pre></div>
+</section><section id="now-we-compile-it" class="slide level2">
+<h2><span class="header-section-number">3.3</span> Now we compile it</h2>
+<pre class="shell"><code>$ go build --buildmode=plugin plugin.go</code></pre>
+<ul>
+<li>This produces a <code>plugin.so</code> file</li>
+<li>Note the use of <code>--buildmode=plugin</code>
+<ul>
+<li>The buildmode flag was introduced in Go 1.5, but the plugin option was introduced in Go 1.8</li>
+<li><a href="https://golang.org/cmd/go/#hdr-Description_of_build_modes">buildmode description</a></li>
+</ul></li>
+</ul>
+</section><section id="if-you-want-to-see-what-the-file-looks-like..." class="slide level2">
+<h2><span class="header-section-number">3.4</span> if you want to see what the file looks like...</h2>
+<pre class="shell"><code>$ file plugin.so</code></pre>
+<p>The output should look like:</p>
+<pre class="shell"><code>plugin.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), 
+dynamically linked, BuildID[sha1]=fc2ec03a4fca7e2b78aa1cb8bd82a9e1c99a0554, 
+not stripped</code></pre>
+<p>Here you can see it is an ELF type binary used by Linux, and importantly not stripped. The not stripped means it keeps all symbols in your .so file. To dive a little deep this is how your executable can call the functions in the .so file, by referencing the symbols.</p>
+</section></section>
+<section><section id="now-lets-write-our-executable" class="titleslide slide level1"><h1><span class="header-section-number">4</span> Now lets write our executable</h1></section><section id="fist-we-need-to-import-the-plugin-package-from-the-1.8-standard-lib" class="slide level2">
+<h2><span class="header-section-number">4.1</span> Fist we need to import the plugin package from the 1.8 standard lib</h2>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">import</span> <span class="st">&quot;plugin&quot;</span></code></pre></div>
+<p>This is needed with any .go file that will call a .so file</p>
+</section><section id="now-for-the-whole-file" class="slide level2">
+<h2><span class="header-section-number">4.2</span> Now for the whole file</h2>
+<div class="sourceCode"><pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="st">&quot;fmt&quot;</span>
+    <span class="st">&quot;plugin&quot;</span>
+)
+
+<span class="kw">func</span> main() {
+    p, err := plugin.Open(<span class="st">&quot;plugin.so&quot;</span>)
+    <span class="kw">if</span> err != <span class="ot">nil</span> {<span class="co">//Do something}</span>
+    g, err := p.Lookup(<span class="st">&quot;Greet&quot;</span>)
+    <span class="kw">if</span> err != <span class="ot">nil</span> {<span class="co">//Do something}</span>
+    greet := g.(<span class="kw">func</span>() <span class="dt">string</span>)
+    fmt.Println(greet())
+}</code></pre></div>
+</section><section id="notice-the-p.lookup" class="slide level2">
+<h2><span class="header-section-number">4.3</span> Notice the p.Lookup()</h2>
+<ul>
+<li>&quot;Greet&quot; is the name of the function we created in <code>plugin.so</code> file, and called with a string because that is the name of the symbol. An error returned on the function is because since the .so file is loaded at runtime there is no guarantee that the symbol exists</li>
+</ul>
+</section><section id="notice-the-assertion-when-creating-greet" class="slide level2">
+<h2><span class="header-section-number">4.4</span> Notice the assertion when creating greet</h2>
+<ul>
+<li>Since the .so file is loaded at runtime the compiler can't know what type you are trying to use</li>
+</ul>
+</section><section id="the-output" class="slide level2">
+<h2><span class="header-section-number">4.5</span> The output</h2>
+<p>We run...</p>
+<pre class="shell"><code>$ go run main.go</code></pre>
+<p>... and we get</p>
+<pre class="shell"><code>Hello Phx Gophers</code></pre>
+</section><section id="thats-the-basics" class="slide level2">
+<h2><span class="header-section-number">4.6</span> Thats the basics</h2>
+</section></section>
+<section><section id="that-sounds-awesome-but..." class="titleslide slide level1"><h1><span class="header-section-number">5</span> That sounds awesome but...</h1></section><section id="some-current-limitations" class="slide level2">
+<h2><span class="header-section-number">5.1</span> Some current limitations</h2>
+<ul>
+<li>Right now you can only use .so files compiled from the go compiler. Meaning you can’t currently use .so files created with C</li>
+<li>You can only create and use the plugin system on Linux, so not on OSX or Windows. This is because the output of the <code>buildmode=plugin</code> creates an ELF binary and not compatible on OSX or Windows.</li>
+<li>Your executable must be compiled with the same version toolchain as the .so file. Right now that isn't an issue since all of this is in the 1.8 release, but may be an issue when 1.8.x is released</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//lib/js/head.min.js"></script>
+  <script src="https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+transition: 'convex',
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1024,
+        height: 576,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.3,
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.1,
+        maxScale: 1.9,
+
+        menu: {
+            // Specifies which side of the presentation the menu will
+            // be shown. Use 'left' or 'right'.
+            side: 'left',
+
+            // Add slide numbers to the titles in the slide list.
+            // Use 'true' or format string (same as reveal.js slide numbers)
+            numbers: false,
+
+            // Specifies which slide elements will be used for generating
+            // the slide titles in the menu. The default selects the first
+            // heading element found in the slide, but you can specify any
+            // valid css selector and the text from the first matching
+            // element will be used.
+            // Note: that a section data-menu-title attribute or an element
+            // with a menu-title class will take precedence over this option
+            titleSelector: 'h1, h2, h3, h4, h5, h6',
+
+            // Hide slides from the menu that do not have a title.
+            // Set to 'true' to only list slides with titles.
+            hideMissingTitles: false,
+
+            // Add markers to the slide titles to indicate the
+            // progress through the presentation
+            markers: false,
+
+            // Specify custom panels to be included in the menu, by
+            // providing an array of objects with 'title', 'icon'
+            // properties, and either a 'src' or 'content' property.
+            custom: false,
+
+            // Specifies the themes that will be available in the themes
+            // menu panel. Set to 'false' to hide themes panel.
+            themes: [
+                { name: 'Black', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/black.css' },
+                { name: 'White', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/white.css' },
+                { name: 'League', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/league.css' },
+                { name: 'Sky', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/sky.css' },
+                { name: 'Beige', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/beige.css' },
+                { name: 'Simple', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/simple.css' },
+                { name: 'Serif', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/serif.css' },
+                { name: 'Blood', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/blood.css' },
+                { name: 'Night', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/night.css' },
+                { name: 'Moon', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/moon.css' },
+                { name: 'Solarized', theme: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//css/theme/solarized.css' }
+            ],
+
+            // Specifies if the transitions menu panel will be shown.
+            transitions: true,
+
+            // Adds a menu button to the slides to open the menu panel.
+            // Set to 'false' to hide the button.
+            openButton: true,
+
+            // If 'true' allows the slide number in the presentation to
+            // open the menu panel. The reveal.js slideNumber option must
+            // be displayed for this to take effect
+            openSlideNumber: false,
+
+            // If true allows the user to open and navigate the menu using
+            // the keyboard. Standard keyboard interaction with reveal
+            // will be disabled while the menu is open.
+            keyboard: true
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//plugin/notes/notes.js', async: true },
+          //{ src: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js//plugin/search/search.js', async: true },
+          { src: 'https://asanzdiego.github.io/markdownslides/doc/lib/reveal.js-menu//menu.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
